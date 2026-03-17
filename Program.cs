@@ -106,7 +106,6 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(
                 "http://localhost:4200",
-                "https://front-tienda-zudf.onrender.com",
                 "https://front-tienda-47tj.onrender.com"
               )
               )
