@@ -108,7 +108,6 @@ builder.Services.AddCors(options =>
                 "http://localhost:4200",
                 "https://front-tienda-47tj.onrender.com"
               )
-              )
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
