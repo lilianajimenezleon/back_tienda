@@ -26,11 +26,11 @@ if (!string.IsNullOrEmpty(port))
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-// Limitar pool de conexiones a máximo 2 (plan gratuito de BD)
-// Usamos Pooling=false para forzar el cierre inmediato y físico de cada conexión
+// Pooling con MaxPoolSize=1 para reutilizar la única conexión del plan gratuito
 var builderConn = new NpgsqlConnectionStringBuilder(connectionString)
 {
-    Pooling = false,
+    Pooling = true,
+    MaxPoolSize = 1,
     Timeout = 20,
     CommandTimeout = 20
 };
