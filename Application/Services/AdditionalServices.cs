@@ -194,7 +194,6 @@ public class DevolucionService : IDevolucionService
             }
 
             await _unitOfWork.Devoluciones.AddAsync(devolucion);
-            await _unitOfWork.SaveChangesAsync();
             await _unitOfWork.CommitTransactionAsync();
 
             return _mapper.Map<DevolucionDto>(devolucion);
@@ -263,7 +262,6 @@ public class MermaService : IMermaService
             await _unitOfWork.Productos.UpdateAsync(producto);
 
             await _unitOfWork.Mermas.AddAsync(merma);
-            await _unitOfWork.SaveChangesAsync();
             await _unitOfWork.CommitTransactionAsync();
 
             return _mapper.Map<MermaDto>(merma);

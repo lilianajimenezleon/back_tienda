@@ -151,9 +151,8 @@ public class VentaService : IVentaService
 
             // Guardar venta
             await _unitOfWork.Ventas.AddAsync(venta);
-            await _unitOfWork.SaveChangesAsync();
 
-            // Confirmar transacción
+            // Confirmar transacción (CommitTransactionAsync ya incluye SaveChangesAsync)
             await _unitOfWork.CommitTransactionAsync();
 
             // Obtener venta completa con relaciones
@@ -204,9 +203,8 @@ public class VentaService : IVentaService
             venta.Observaciones = $"{venta.Observaciones}\n[CANCELADA] {motivo} - Por: {idUsuario} - Fecha: {DateTime.UtcNow:dd/MM/yyyy HH:mm}";
 
             await _unitOfWork.Ventas.UpdateAsync(venta);
-            await _unitOfWork.SaveChangesAsync();
 
-            // Confirmar transacción
+            // Confirmar transacción (CommitTransactionAsync ya incluye SaveChangesAsync)
             await _unitOfWork.CommitTransactionAsync();
 
             return true;

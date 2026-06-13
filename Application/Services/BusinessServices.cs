@@ -137,7 +137,6 @@ public class CompraService : ICompraService
             compra.TotalCompra = totalCompra;
 
             await _unitOfWork.Compras.AddAsync(compra);
-            await _unitOfWork.SaveChangesAsync();
             await _unitOfWork.CommitTransactionAsync();
 
             var compraCompleta = await _unitOfWork.Compras.GetWithDetallesAsync(compra.IdCompra);
@@ -213,7 +212,6 @@ public class CompraService : ICompraService
             compra.Observaciones = dto.Observaciones;
 
             await _unitOfWork.Compras.UpdateAsync(compra);
-            await _unitOfWork.SaveChangesAsync();
             await _unitOfWork.CommitTransactionAsync();
 
             var compraActualizada = await _unitOfWork.Compras.GetWithDetallesAsync(id);
