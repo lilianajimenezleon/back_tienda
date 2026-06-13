@@ -18,6 +18,25 @@ public class MermasController : ControllerBase
         _mermaService = mermaService;
     }
 
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<MermaDto>>> GetAll()
+    {
+        var isAdmin = User.IsInRole("ADMIN_SISTEMA");
+        var idTiendaClaim = User.Claims.FirstOrDefault(c => c.Type == "IdTienda")?.Value;
+
+        if (isAdmin)
+        {
+            return Ok(await _mermaService.GetAllAsync());
+        }
+
+        if (string.IsNullOrEmpty(idTiendaClaim))
+        {
+            return BadRequest("No se pudo obtener la tienda del usuario");
+        }
+
+        return Ok(await _mermaService.GetByTiendaAsync(Guid.Parse(idTiendaClaim)));
+    }
+
     [HttpGet("tienda/{idTienda}")]
     public async Task<ActionResult<IEnumerable<MermaDto>>> GetByTienda(Guid idTienda)
     {

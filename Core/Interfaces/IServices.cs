@@ -86,6 +86,7 @@ public interface IMermaService
 {
     Task<MermaDto> CrearAsync(Guid idUsuario, CrearMermaDto dto);
     Task<IEnumerable<MermaDto>> GetByTiendaAsync(Guid idTienda);
+    Task<IEnumerable<MermaDto>> GetAllAsync();
 }
 
 public interface IReporteService

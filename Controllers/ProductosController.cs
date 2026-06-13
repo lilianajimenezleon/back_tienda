@@ -20,15 +20,21 @@ public class ProductosController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ProductoDto>>> GetAll()
     {
+        var isAdmin = User.IsInRole("ADMIN_SISTEMA");
         var idTiendaClaim = User.Claims.FirstOrDefault(c => c.Type == "IdTienda")?.Value;
+
+        if (isAdmin)
+        {
+            return Ok(await _productoService.GetAllAsync());
+        }
+
         if (string.IsNullOrEmpty(idTiendaClaim))
         {
             return BadRequest("No se pudo obtener la tienda del usuario");
         }
 
         var idTienda = Guid.Parse(idTiendaClaim);
-        var productos = await _productoService.GetByTiendaAsync(idTienda);
-        return Ok(productos);
+        return Ok(await _productoService.GetByTiendaAsync(idTienda));
     }
 
     [HttpGet("{id}")]

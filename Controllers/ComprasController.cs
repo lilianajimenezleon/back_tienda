@@ -24,15 +24,21 @@ public class ComprasController : ControllerBase
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (string.IsNullOrEmpty(userId)) return Unauthorized();
 
+        var isAdmin = User.IsInRole("ADMIN_SISTEMA");
         var idTiendaClaim = User.Claims.FirstOrDefault(c => c.Type == "IdTienda")?.Value;
+
+        if (isAdmin)
+        {
+            return Ok(await _compraService.GetAllAsync());
+        }
+
         if (string.IsNullOrEmpty(idTiendaClaim))
         {
             return BadRequest("No se pudo obtener la tienda del usuario");
         }
 
         var idTienda = Guid.Parse(idTiendaClaim);
-        var compras = await _compraService.GetByTiendaAsync(idTienda);
-        return Ok(compras);
+        return Ok(await _compraService.GetByTiendaAsync(idTienda));
     }
 
     [HttpGet("{id}")]

@@ -280,6 +280,12 @@ public class MermaService : IMermaService
         var mermas = await _unitOfWork.Mermas.GetByTiendaAsync(idTienda);
         return _mapper.Map<IEnumerable<MermaDto>>(mermas);
     }
+
+    public async Task<IEnumerable<MermaDto>> GetAllAsync()
+    {
+        var mermas = await _unitOfWork.Mermas.GetAllAsync();
+        return _mapper.Map<IEnumerable<MermaDto>>(mermas);
+    }
 }
 
 public class UsuarioService : IUsuarioService
