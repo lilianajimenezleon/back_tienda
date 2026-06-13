@@ -17,6 +17,24 @@ public class ProveedoresController : ControllerBase
         _proveedorService = proveedorService;
     }
 
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<ProveedorDto>>> GetAll()
+    {
+        var isAdmin = User.IsInRole("ADMIN_SISTEMA");
+        if (isAdmin)
+        {
+            return Ok(await _proveedorService.GetAllAsync());
+        }
+
+        var idTiendaClaim = User.Claims.FirstOrDefault(c => c.Type == "IdTienda")?.Value;
+        if (string.IsNullOrEmpty(idTiendaClaim))
+        {
+            return BadRequest("No se pudo obtener la tienda del usuario");
+        }
+
+        return Ok(await _proveedorService.GetByTiendaAsync(Guid.Parse(idTiendaClaim)));
+    }
+
     [HttpGet("tienda/{idTienda}")]
     public async Task<ActionResult<IEnumerable<ProveedorDto>>> GetByTienda(Guid idTienda)
     {

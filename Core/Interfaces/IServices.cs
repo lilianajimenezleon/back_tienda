@@ -52,6 +52,7 @@ public interface ICategoriaService
 
 public interface IProveedorService
 {
+    Task<IEnumerable<ProveedorDto>> GetAllAsync();
     Task<IEnumerable<ProveedorDto>> GetByTiendaAsync(Guid idTienda);
     Task<ProveedorDto> CrearAsync(CrearProveedorDto dto);
     Task<bool> EliminarAsync(Guid id);

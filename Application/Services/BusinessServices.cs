@@ -386,6 +386,12 @@ public class ProveedorService : IProveedorService
         return _mapper.Map<IEnumerable<ProveedorDto>>(proveedores);
     }
 
+    public async Task<IEnumerable<ProveedorDto>> GetAllAsync()
+    {
+        var proveedores = await _unitOfWork.Proveedores.GetAllAsync();
+        return _mapper.Map<IEnumerable<ProveedorDto>>(proveedores);
+    }
+
     public async Task<ProveedorDto> CrearAsync(CrearProveedorDto dto)
     {
         if (await _unitOfWork.Proveedores.ExisteNombreEnTiendaAsync(dto.IdTienda, dto.NombreProveedor))
