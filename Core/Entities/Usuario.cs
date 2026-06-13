@@ -22,4 +22,6 @@ public class Usuario
     public virtual ICollection<EmpleadoTienda> EmpleadoTiendas { get; set; } = new List<EmpleadoTienda>();
     public virtual ICollection<Venta> Ventas { get; set; } = new List<Venta>();
     public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();
+    public virtual ICollection<Merma> Mermas { get; set; } = new List<Merma>();
+    public virtual ICollection<Devolucion> Devoluciones { get; set; } = new List<Devolucion>();
 }

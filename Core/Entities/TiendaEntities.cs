@@ -22,6 +22,7 @@ public class Tienda
     public virtual ICollection<Proveedor> Proveedores { get; set; } = new List<Proveedor>();
     public virtual ICollection<Venta> Ventas { get; set; } = new List<Venta>();
     public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();
+    public virtual ICollection<Merma> Mermas { get; set; } = new List<Merma>();
 }
 
 public class EmpleadoTienda
@@ -89,4 +90,6 @@ public class Producto
     public virtual Categoria? Categoria { get; set; }
     public virtual ICollection<DetalleVenta> DetalleVentas { get; set; } = new List<DetalleVenta>();
     public virtual ICollection<DetalleCompra> DetalleCompras { get; set; } = new List<DetalleCompra>();
+    public virtual ICollection<Merma> Mermas { get; set; } = new List<Merma>();
+    public virtual ICollection<Devolucion> Devoluciones { get; set; } = new List<Devolucion>();
 }

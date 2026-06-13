@@ -319,6 +319,10 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.Motivo).HasColumnName("motivo");
             entity.Property(e => e.FechaDevolucion).HasColumnName("fecha_devolucion").HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.MontoDevuelto).HasColumnName("monto_devuelto").HasPrecision(12, 2);
+
+            entity.HasOne(e => e.Venta).WithMany().HasForeignKey(e => e.IdVenta).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.Producto).WithMany(e => e.Devoluciones).HasForeignKey(e => e.IdProducto).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.Usuario).WithMany(e => e.Devoluciones).HasForeignKey(e => e.IdUsuario).OnDelete(DeleteBehavior.Cascade);
         });
     }
 
@@ -336,6 +340,10 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.Motivo).HasColumnName("motivo").HasMaxLength(100);
             entity.Property(e => e.Descripcion).HasColumnName("descripcion");
             entity.Property(e => e.FechaMerma).HasColumnName("fecha_merma").HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            entity.HasOne(e => e.Tienda).WithMany(e => e.Mermas).HasForeignKey(e => e.IdTienda).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.Producto).WithMany(e => e.Mermas).HasForeignKey(e => e.IdProducto).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.Usuario).WithMany(e => e.Mermas).HasForeignKey(e => e.IdUsuario).OnDelete(DeleteBehavior.Cascade);
         });
     }
 }
